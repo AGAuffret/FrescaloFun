@@ -160,7 +160,35 @@ if(return.all==FALSE){return(out.df)}
 
 #---------- frescPescPlot -----------#
 
-frescPescPlot<-function(species, trends, point.col="black", line.col="forestgreen"){  # Simple check to see if the input object has the right dimensions  if(!class(trends)=="list" | !length(trends)==3){stop("Please supply a list from the output of frescTrends(return.all=TRUE)")}    # Check that the species is there  if(length(species)>1){stop("Sorry, this function only plots one species at a time")}      # Check that the species is there  if(!species %in% trends$trends$species){stop(paste("The species", species, "is not in the trends data frame"))}    # Check colours  if(!point.col %in% colors()) {stop(paste(point.col, "is not a colour - this function only accepts namned colours"))}  if(!line.col %in% colors()) {stop(paste(line.col, "is not a colour - this function only accepts namned colours"))}    # Get vectors of the relative occupancy and standard deviations  rel.occ.spe <- sapply(trends$time.periods, function(x) trends$trends[trends$trends$species==species,paste0("rel.occ.val.",x)] )  rel.occ.sd.spe<-sapply(trends$time.periods, function(x) trends$trends[trends$trends$species==species,paste0("rel.occ.sd.",x)] )    # make axis limits relevant to the species at hand  ylims<-c(mean(rel.occ.spe)-(2*max(rel.occ.sd.spe)),mean(rel.occ.spe)+(2*max(2*rel.occ.sd.spe)))  xlims<-c(min(trends$time.periods)-10, max(trends$time.periods)+10)    # plot it    plot(0,xlim=xlims,ylim=ylims,type="n", axes=TRUE, frame.plot=FALSE, main=species, xlab="Year", ylab="Relative occupancy", font.axis=2, font.lab=2, cex.lab=1.2, cex.main=1.3) # create empty plot  apply(trends$lm.coeff[[species]],1,abline,col=adjustcolor(line.col,alpha.f = 0.3) )  points(trends$time.periods,rel.occ.spe, pch=16, col=point.col,cex=1.75) # create empty plot  segments(trends$time.periods, rel.occ.spe-rel.occ.sd.spe, trends$time.periods, rel.occ.spe+rel.occ.sd.spe, lwd=2.5, col=point.col) # draw lines for confidence intervals}
+frescPescPlot<-function(species, trends, point.col="black", line.col="forestgreen"){
+  # Simple check to see if the input object has the right dimensions
+  if(!class(trends)=="list" | !length(trends)==3){stop("Please supply a list from the output of frescTrends(return.all=TRUE)")}
+  
+  # Check that the species is there
+  if(length(species)>1){stop("Sorry, this function only plots one species at a time")}
+  
+    # Check that the species is there
+  if(!species %in% trends$trends$species){stop(paste("The species", species, "is not in the trends data frame"))}
+  
+  # Check colours
+  if(!point.col %in% colors()) {stop(paste(point.col, "is not a colour - this function only accepts namned colours"))}
+  if(!line.col %in% colors()) {stop(paste(line.col, "is not a colour - this function only accepts namned colours"))}
+  
+  # Get vectors of the relative occupancy and standard deviations
+  rel.occ.spe <- sapply(trends$time.periods, function(x) trends$trends[trends$trends$species==species,paste0("rel.occ.val.",x)] )
+  rel.occ.sd.spe<-sapply(trends$time.periods, function(x) trends$trends[trends$trends$species==species,paste0("rel.occ.sd.",x)] )
+  
+  # make axis limits relevant to the species at hand
+  ylims<-c(mean(rel.occ.spe)-(2*max(rel.occ.sd.spe)),mean(rel.occ.spe)+(2*max(2*rel.occ.sd.spe)))
+  xlims<-c(min(trends$time.periods)-10, max(trends$time.periods)+10)
+  
+  # plot it  
+  plot(0,xlim=xlims,ylim=ylims,type="n", axes=TRUE, frame.plot=FALSE, main=species, xlab="Year", ylab="Relative occupancy", font.axis=2, font.lab=2, cex.lab=1.2, cex.main=1.3) # create empty plot
+  apply(trends$lm.coeff[[species]],1,abline,col=adjustcolor(line.col,alpha.f = 0.3) )
+  points(trends$time.periods,rel.occ.spe, pch=16, col=point.col,cex=1.75) # create empty plot
+  segments(trends$time.periods, rel.occ.spe-rel.occ.sd.spe, trends$time.periods, rel.occ.spe+rel.occ.sd.spe, lwd=2.5, col=point.col) # draw lines for confidence intervals
+
+}
 
 
 
