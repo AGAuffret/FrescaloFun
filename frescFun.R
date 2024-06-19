@@ -87,7 +87,7 @@ out.df$fij<-frescalo.results$freq$Freq1[match(paste(out.df$species, out.df$grid.
 
 out.df[,paste0("xjt.",time.periods)]<-sapply(time.periods, function(x) frescalo.results$trend$TFactor[match(paste(out.df$species, x), paste(frescalo.results$trend$Species, frescalo.results$trend$Time))])
 
-out.df[,as.character(time.periods)]<-sapply(time.periods, function(x) 1-exp(-(-log(out.df$fij))*out.df[,paste0("xjt.",x)]))
+out.df[,as.character(time.periods)]<-sapply(time.periods, function(x) 1-exp(-(-log(1-out.df$fij))*out.df[,paste0("xjt.",x)]))
 
 out.df<-out.df[,out.df.names]
 
