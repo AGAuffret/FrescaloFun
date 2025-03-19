@@ -1,5 +1,5 @@
 # FrescaloFun
-This repository contains a .R file containing functions that will allow you to take an output folder from a Frescalo analysis (implemented using the `sparta` package), and use it to estimate recorder effort per grid cell, estimate and plot different (but quite similar) metrics of species' regional occupancy change, and calculate species' probability of occurrence in a given grid cell during a given time period. For instructions on running the functions, including example data, please see the Rmarkdown tutorial.
+This repository contains a .R file containing functions that will allow you to take an output folder from a Frescalo analysis (implemented using the `sparta` package), and use it to estimate recorder effort per grid cell, estimate and plot different (but quite similar) metrics of species' regional occupancy change, and calculate species' probability of occurrence in a given grid cell during a given time period. For instructions on running the functions, including example data, please see the [Rmarkdown tutorial](https://agauffret.github.io/FrescaloFun/FrescaloFun_tutorial250319.html).
 
 ## Authors
 [Alistair Auffret](mailto:alistair.auffret@slu.se) and Matilda Arnell
